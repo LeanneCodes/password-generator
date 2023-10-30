@@ -127,7 +127,7 @@ function getPasswordOptions() {
 
   // Store user choices in an object
   /*
-    In order to access the choices the user selectes, we must
+    In order to access the choices the user selects, we must
     store them in an object, so that we can access these values
     later on. Returning the passwordOptions, will allow us to do
     that.
@@ -144,8 +144,15 @@ function getPasswordOptions() {
 }
 
 // Function for getting a random element from an array
+/*
+  We now need to get a random number, so that we can use
+  this as an index number to find a character in the array.
+  This function code was inspired by w3resource.com
+*/
 function getRandom(arr) {
-
+  var randomNum = Math.floor(Math.random() * arr.length);
+  var randomChar = arr[randomNum];
+  return randomChar;
 }
 
 // Function to generate password with user input
