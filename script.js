@@ -96,12 +96,13 @@ function getPasswordOptions() {
 
   // Check if the length is a valid number
   /* 
-    isNan checks if the input is a number.
     If the input is less than 8 characters or grater than 128 characters,
     then the if statement returns null, which means nothing has been return.
+    isNan checks if the input is a number. If it's not, the if statement will
+    return null. I got the isNaN function from MDN web docs.
   */
   if (length < 8 || length > 128 || isNaN(length)) {
-    alert("Please enter a valid number between 8 and 128.");
+    alert("Please enter a valid number between 8 and 128 inclusive.");
     return null;
   }
 
@@ -129,7 +130,7 @@ function getPasswordOptions() {
     nothing will be returned.
   */
   if (!specialChar && !numChar && !lowerChar && !upperChar) {
-    alert("Please select at least one character type.");
+    alert("Please select at least one character type. Click 'Generate Password' again.");
     return null;
   }
 
@@ -189,6 +190,50 @@ function generatePassword() {
     random elements will be chosen to be in the password.
   */
   var passwordString = "";
+
+  /*
+    Because the following variables in the if statements are booleans,
+    if the user did chose to include these character types in their
+    password, the specific if statement will run and concatenate the
+    character type array to the allCharacters array.
+    Independent if statements are needed, because a standard
+    if else statement, would ignore the remaining statements as soon
+    as one condition is met. Given that the user could choose all options,
+    independent statements are needed.
+  */
+  if (options.specialChar) {
+    allCharacters = allCharacters.concat(specialCharacters);
+  }
+
+  if (options.numChar) {
+    allCharacters = allCharacters.concat(numericCharacters);
+  }
+
+  if (options.lowerChar) {
+    allCharacters = allCharacters.concat(lowerCasedCharacters);
+  }
+
+  if (options.upperChar) {
+    allCharacters = allCharacters.concat(upperCasedCharacters);
+  }
+
+  console.log(allCharacters);
+
+  /*
+    Now that we have all the characters that we want in our allCharacters array,
+    we can pass this array as an argument into the getRandom function, which
+    will continue to generate a random character based on the user's password
+    length. I used Scaler.com as a guide to use the '+' operator to concatenate
+    the characters.
+  */
+  for (var i = 0; i < options.length; i++) {
+    var randomChar = getRandom(allCharacters);
+    passwordString += randomChar;
+  }
+
+  console.log(passwordString);
+
+  return passwordString;
 }
 
 // Get references to the #generate element
