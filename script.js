@@ -92,6 +92,7 @@ var upperCasedCharacters = [
 function getPasswordOptions() {
   // Prompt for password length
   var length = parseInt(prompt("Enter the password length (between 8 and 128 characters inclusive):"));
+  console.log(length);
 
   // Check if the length is a valid number
   /* 
@@ -110,9 +111,16 @@ function getPasswordOptions() {
     type of characters they would like in their password.
   */
   var specialChar = confirm("Would you like to include special characters?");
+  console.log(specialChar);
+
   var numChar = confirm("Would you like to include numeric characters?");
+  console.log(numChar);
+
   var lowerChar = confirm("Would you like to include lowercase characters?");
+  console.log(lowerChar);
+
   var upperChar = confirm("Would you like to include uppercase characters?");
+  console.log(upperChar);
 
   // Check if at least one character type is selected
   /*
@@ -130,7 +138,8 @@ function getPasswordOptions() {
     In order to access the choices the user selects, we must
     store them in an object, so that we can access these values
     later on. Returning the passwordOptions, will allow us to do
-    that.
+    that. I used MDN web docs to help construct this object to
+    store all the variables.
   */
   var passwordOptions = {
     length: length,
@@ -139,6 +148,8 @@ function getPasswordOptions() {
     lowerChar: lowerChar,
     upperChar: upperChar
   };
+
+  console.log(passwordOptions);
 
   return passwordOptions;
 }
@@ -151,13 +162,33 @@ function getPasswordOptions() {
 */
 function getRandom(arr) {
   var randomNum = Math.floor(Math.random() * arr.length);
-  var randomChar = arr[randomNum];
-  return randomChar;
+  var randomElement = arr[randomNum];
+  return randomElement;
 }
 
 // Function to generate password with user input
 function generatePassword() {
+  // accessing the passwordOptions object here
+  var options = getPasswordOptions();
+  console.log(options);
 
+  // Returns an empty string if options are not valid
+  if (!options) {
+    return "";
+  }
+
+  /*
+    We now need to create an empty string, as we will concatenate
+    strings based on the user's options from the confirm statements.
+  */
+  var allCharacters = [];
+
+  /*
+    The password will initially be an empty string. But as we iterate
+    through the all the possible chaarcters that could be in the password,
+    random elements will be chosen to be in the password.
+  */
+  var passwordString = "";
 }
 
 // Get references to the #generate element
